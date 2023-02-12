@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres
+    container_name: appoint_db
+    environment:
+      - POSTGRES_USER=john
+      - POSTGRES_PASSWORD=sisk
+    ports:
+      - 5433:5432
+    networks:
+      - postgres
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+volumes:
+  postgres-db:
+    driver: local
+
+networks:
+  postgres:
+    driver: bridge
