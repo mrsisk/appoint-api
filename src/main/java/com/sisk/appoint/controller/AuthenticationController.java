@@ -1,9 +1,6 @@
 package com.sisk.appoint.controller;
 
-import com.sisk.appoint.model.AuthenticationResponse;
-import com.sisk.appoint.model.MessageResponse;
-import com.sisk.appoint.model.AuthenticationRequest;
-import com.sisk.appoint.model.RefreshRequest;
+import com.sisk.appoint.model.*;
 import com.sisk.appoint.service.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +14,13 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
     @PostMapping("/register")
-    public ResponseEntity<MessageResponse> register(@Valid @RequestBody AuthenticationRequest body){
+    public ResponseEntity<MessageResponse> register(@Valid @RequestBody RegisterRequest body){
         System.out.println("registering");
         return  ResponseEntity.ok().body(authenticationService.register(body));
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest body){
+    public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticateRequest body){
 
         return ResponseEntity.ok(authenticationService.authenticate(body));
     }
@@ -31,5 +28,10 @@ public class AuthenticationController {
     @PostMapping("/refresh")
     public ResponseEntity<AuthenticationResponse> refresh(@RequestBody RefreshRequest request){
      return  ResponseEntity.ok(authenticationService.refresh(request));
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<TestUser> test(){
+       return ResponseEntity.ok(new TestUser("sisk"));
     }
 }

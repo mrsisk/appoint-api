@@ -1,15 +1,12 @@
 package com.sisk.appoint.service;
 
-import com.sisk.appoint.model.AuthenticationResponse;
-import com.sisk.appoint.model.MessageResponse;
-import com.sisk.appoint.model.AuthenticationRequest;
-import com.sisk.appoint.model.RefreshRequest;
+import com.sisk.appoint.model.*;
 
 public interface AuthenticationService {
 
-    MessageResponse register(AuthenticationRequest request);
+    MessageResponse register(RegisterRequest request);
 
-    AuthenticationResponse authenticate(AuthenticationRequest request);
+    AuthenticationResponse authenticate(AuthenticateRequest request);
 
     AuthenticationResponse refresh(RefreshRequest request);
 

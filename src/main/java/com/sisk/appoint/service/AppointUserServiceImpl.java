@@ -8,9 +8,12 @@ import com.sisk.appoint.repository.RoleRepository;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -47,6 +50,8 @@ public class AppointUserServiceImpl implements AppointUserService {
 
     @Override
     public AppointUser getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow();
+        return userRepository.findByEmail(email).orElseThrow(()-> new BadCredentialsException("Invalid credentials"));
     }
+
+
 }

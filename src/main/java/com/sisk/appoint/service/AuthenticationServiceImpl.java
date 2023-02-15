@@ -3,10 +3,7 @@ package com.sisk.appoint.service;
 import com.sisk.appoint.entity.AppointUser;
 import com.sisk.appoint.entity.Role;
 import com.sisk.appoint.entity.RoleType;
-import com.sisk.appoint.model.AuthenticationResponse;
-import com.sisk.appoint.model.MessageResponse;
-import com.sisk.appoint.model.AuthenticationRequest;
-import com.sisk.appoint.model.RefreshRequest;
+import com.sisk.appoint.model.*;
 import com.sisk.appoint.repository.RoleRepository;
 import com.sisk.appoint.security.AppointUserDetails;
 import com.sisk.appoint.security.JwtService;
@@ -32,17 +29,20 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     private AuthenticationManager authenticationManager;
 
     @Override
-    public MessageResponse register(AuthenticationRequest request) {
-        AppointUser user = new AppointUser(request.email(), encoder.encode(request.password()));
-        //TODO create custom exception
-        Role role = roleRepository.findByName(RoleType.USER).orElseThrow(()-> new RuntimeException("Role note found"));
-        user.addRole(role);
-        userService.saveUser(user);
+    public MessageResponse register(RegisterRequest request) {
+
+            AppointUser user = new AppointUser(request.email(), encoder.encode(request.password()));
+            //TODO create custom exception
+            Role role = roleRepository.findByName(RoleType.USER).orElseThrow(()-> new RuntimeException("Role note found"));
+            user.addRole(role);
+            userService.saveUser(user);
+
+
         return new MessageResponse("User successfully registered");
     }
 
     @Override
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticateRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password())
         );

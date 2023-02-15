@@ -1,17 +1,20 @@
 package com.sisk.appoint.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "email_unique_idx")})
 public class AppointUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
+   // @Column(unique = true)
     private String email;
+    @JsonIgnore
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -29,6 +32,7 @@ public class AppointUser {
 
     public AppointUser() {
     }
+
 
     public String getEmail() {
         return email;

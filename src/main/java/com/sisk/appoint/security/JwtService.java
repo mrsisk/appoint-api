@@ -22,12 +22,18 @@ public class JwtService implements Serializable {
     private static final long serialVersionUID = 234234523523L;
     public static final long TOKEN_VALIDITY = 2 * 60;
 
-    public static final long REFRESH_TOKEN_VALIDITY = 5 * 60;
+    public static final long REFRESH_TOKEN_VALIDITY = 10 * 60;
 
     @Value("${jwt.secret}")
     private String secret;
 
     public String getUsernameFromToken(String token) {
+//        try {
+//            return getClaimFromToken(token, Claims::getSubject);
+//        }catch (Exception e){
+//            return null;
+//        }
+
         return getClaimFromToken(token, Claims::getSubject);
     }
 
