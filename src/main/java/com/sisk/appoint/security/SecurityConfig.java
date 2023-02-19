@@ -37,9 +37,9 @@ public class SecurityConfig {
         return http
                 .csrf()
                 .disable()
-//                .exceptionHandling()
-//                .authenticationEntryPoint(unauthorizedHandler)
-//                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler)
+                .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
