@@ -20,9 +20,9 @@ import java.util.function.Function;
 public class JwtService implements Serializable {
     @Serial
     private static final long serialVersionUID = 234234523523L;
-    public static final long TOKEN_VALIDITY = 3 * 60;
+    public static final long TOKEN_VALIDITY = 10 * 60;
 
-    public static final long REFRESH_TOKEN_VALIDITY = 3 * 60;
+    public static final long REFRESH_TOKEN_VALIDITY = 30 * 60;
 
     @Value("${jwt.secret}")
     private String secret;

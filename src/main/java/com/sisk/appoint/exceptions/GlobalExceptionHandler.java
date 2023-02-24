@@ -4,7 +4,10 @@ import com.sisk.appoint.model.ConstraintField;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -48,6 +51,22 @@ public class GlobalExceptionHandler {
         errors.put("message", exception.getLocalizedMessage());
         return errors;
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public Map<String, String> messageNotReadable(HttpMessageNotReadableException exception){
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", exception.getLocalizedMessage());
+        return errors;
+    }
+
+//    @ExceptionHandler(AuthenticationException.class)
+//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+//    public Map<String, String> handleControllerException(AuthenticationException exception) {
+//        Map<String, String> errors = new HashMap<>();
+//        errors.put("message", exception.getLocalizedMessage());
+//        return errors;
+//    }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException.class)
