@@ -76,6 +76,14 @@ public class GlobalExceptionHandler {
         return errors;
     }
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(RuntimeException.class)
+    public Map<String, String> runTimeEx(RuntimeException exception){
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", exception.getLocalizedMessage());
+        return errors;
+    }
+
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(DataIntegrityViolationException.class)
     public Map<String, String> handleIntegrityEx(DataIntegrityViolationException exception){
