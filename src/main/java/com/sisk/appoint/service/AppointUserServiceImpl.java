@@ -4,6 +4,7 @@ import com.sisk.appoint.entity.AppointUser;
 import com.sisk.appoint.entity.Profile;
 import com.sisk.appoint.entity.Role;
 import com.sisk.appoint.entity.RoleType;
+import com.sisk.appoint.model.PageResult;
 import com.sisk.appoint.model.ProfileRequest;
 import com.sisk.appoint.repository.AppointUserRepository;
 import com.sisk.appoint.repository.ProfileRepository;
@@ -11,6 +12,8 @@ import com.sisk.appoint.repository.RoleRepository;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -51,9 +54,11 @@ public class AppointUserServiceImpl implements AppointUserService {
     }
 
     @Override
-    public List<AppointUser> getUsers() {
-
-        return userRepository.findAll();
+    public Page<AppointUser> getUsers(int page, int size) {
+        Page<AppointUser> results = userRepository.findAll(PageRequest.of(page, size));
+        PageResult<AppointUser> res = new PageResult<>(results.getContent(), results.getTotalElements());
+        return results;
+        //return userRepository.findAll();
     }
 
     @Override

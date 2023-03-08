@@ -1,5 +1,6 @@
 package com.sisk.appoint.controller;
 
+import com.sisk.appoint.entity.RoleType;
 import com.sisk.appoint.model.*;
 import com.sisk.appoint.service.AuthenticationService;
 import jakarta.validation.Valid;
@@ -16,7 +17,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<MessageResponse> register(@Valid @RequestBody RegisterRequest body){
         System.out.println("registering");
-        return  ResponseEntity.ok().body(authenticationService.register(body));
+        return  ResponseEntity.ok().body(authenticationService.register(body, RoleType.USER));
     }
 
     @PostMapping("/authenticate")

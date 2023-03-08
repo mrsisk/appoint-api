@@ -4,7 +4,9 @@ import com.sisk.appoint.entity.AppointUser;
 import com.sisk.appoint.entity.Profile;
 import com.sisk.appoint.entity.Role;
 import com.sisk.appoint.entity.RoleType;
+import com.sisk.appoint.model.PageResult;
 import com.sisk.appoint.model.ProfileRequest;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ public interface AppointUserService {
 
     void saveUserRole(String email, RoleType roleType);
 
-    List<AppointUser> getUsers();
+    Page<AppointUser> getUsers(int page, int size);
 
     AppointUser getUserByEmail(String email);
 

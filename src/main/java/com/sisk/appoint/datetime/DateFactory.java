@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 @Component
 public class DateFactory {
     private final LocalDate now = LocalDate.now(ZoneId.of("Africa/Johannesburg"));
-    private  final DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
+    private  final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @Autowired
     private TimeFactory timeFactory;
@@ -50,7 +50,6 @@ public class DateFactory {
 
     private WorkDay workDayConvertor(LocalDate date, TreeSet<WorkPeriod> workPeriods){
         final String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault());
-        
         final String fullDate = date.format(formatter);
         final int day = date.getDayOfMonth();
         final String formattedDay = String.format("%02d", day);

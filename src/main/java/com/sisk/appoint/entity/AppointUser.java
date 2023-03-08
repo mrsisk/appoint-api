@@ -24,7 +24,7 @@ public class AppointUser {
 
     private ZonedDateTime createdAt;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -36,6 +36,9 @@ public class AppointUser {
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Booking> bookings;
+
     public AppointUser(String email, String password) {
         this.email = email;
         this.password = password;
@@ -43,6 +46,14 @@ public class AppointUser {
     }
 
     public AppointUser() {
+    }
+
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     public ZonedDateTime getCreatedAt() {

@@ -56,6 +56,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Map<String, String> messageNotReadable(HttpMessageNotReadableException exception){
         Map<String, String> errors = new HashMap<>();
+        System.out.println("bad request " + exception.getLocalizedMessage());
         errors.put("message", exception.getLocalizedMessage());
         return errors;
     }
@@ -80,6 +81,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public Map<String, String> runTimeEx(RuntimeException exception){
         Map<String, String> errors = new HashMap<>();
+        System.out.println("runtime ex " + exception.getLocalizedMessage());
         errors.put("message", exception.getLocalizedMessage());
         return errors;
     }

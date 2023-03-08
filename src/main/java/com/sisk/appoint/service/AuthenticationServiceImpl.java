@@ -29,11 +29,11 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     private AuthenticationManager authenticationManager;
 
     @Override
-    public MessageResponse register(RegisterRequest request) {
+    public MessageResponse register(RegisterRequest request, RoleType roleType) {
 
             AppointUser user = new AppointUser(request.email(), encoder.encode(request.password()));
             //TODO create custom exception
-            Role role = roleRepository.findByName(RoleType.USER).orElseThrow(()-> new RuntimeException("Role note found"));
+            Role role = roleRepository.findByName(roleType).orElseThrow(()-> new RuntimeException("Role note found"));
             user.addRole(role);
             userService.saveUser(user);
 
